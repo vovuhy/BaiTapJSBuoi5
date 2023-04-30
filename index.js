@@ -75,7 +75,7 @@ function baiTap2() {
         console.log('ok')
         tienDien = 500 * 50 + 50 * 650 + 100 * 850 + 150 * 1100 + (soDien - 350) * 1300
     }
-    result = `<div class='alert alert-success'>Họ tên: ${name}, Tiền điện: ${new Intl.NumberFormat("de-DE").format(tienDien)} đ</div>`
+    var result = `<div class='alert alert-success'>Họ tên: ${name}, Tiền điện: ${new Intl.NumberFormat("de-DE").format(tienDien)} đ</div>`
     document.getElementById('b2Result').innerHTML = result
 }
 
@@ -109,7 +109,53 @@ function baiTap3() {
         default:
             taxRate = 0.35
     }
-    var thueThuNhap= thuNhapChiuThue*taxRate
-    result = `<div class='alert alert-success'>Họ tên: ${name}, Thu nhập chịu thuế: ${new Intl.NumberFormat("de-DE").format(thuNhapChiuThue)} đ,Mức đóng thuế: ${taxRate*100}%,Tiền thuế thu nhập: ${new Intl.NumberFormat("de-DE").format(thueThuNhap)} đ</div>`
+    var thueThuNhap = thuNhapChiuThue * taxRate
+    var result = `<div class='alert alert-success'>Họ tên: ${name}, Thu nhập chịu thuế: ${new Intl.NumberFormat("de-DE").format(thuNhapChiuThue)} đ,Mức đóng thuế: ${taxRate * 100}%,Tiền thuế thu nhập: ${new Intl.NumberFormat("de-DE").format(thueThuNhap)} đ</div>`
     document.getElementById('b3Result').innerHTML = result
+}
+
+// Bài 4
+
+function changeInput() {
+    var loaiKhach = getEleVal('b4Loai')
+    if (loaiKhach == 2) {
+        document.getElementById('inputKetNoi').innerHTML = `
+        <input id="b4KetNoi" type="number" class="form-control" placeholder="Nhập số kết nối" />
+        `
+    } else {
+        document.getElementById('inputKetNoi').innerHTML = ``
+    }
+}
+
+function baiTap4() {
+    var loaiKhach = getEleVal('b4Loai')
+    var maKhach = getEleVal('b4MaKhach')
+    var soKenh = getEleVal('b4SoKenh')
+    var phiXuLy = 0
+    var phiDichVu = 0
+    var thueKenh = 0
+    if (loaiKhach == '') {
+        alert('Chọn loại khách!')
+        return 'ok'
+    } else if (loaiKhach == '1') {
+        phiXuLy = 4.5
+        phiDichVu = 20.5
+        thueKenh = 7.5 * soKenh
+        console.log('1111');
+    } else {
+        var delta = 0
+        var ketNoi = getEleVal('b4KetNoi') * 1
+        if (ketNoi <= 10) {
+            delta = 0
+        } else {
+            delta = ketNoi - 10
+        }
+        phiXuLy = 15
+        phiDichVu = 75 + delta * 5
+        thueKenh = 7.5 * soKenh
+    }
+    var tienCap=phiXuLy+phiDichVu+thueKenh
+
+    var result = `<div class='alert alert-success'>Mã khách: ${maKhach}, Tiền cáp: $${new Intl.NumberFormat("de-DE").format(tienCap)} </div>`
+    document.getElementById('b4Result').innerHTML = result
 }
